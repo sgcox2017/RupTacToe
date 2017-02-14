@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+<AnchorPane id="AnchorPane" fx:id="rootPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StartController">
     <children>
         <Label layoutX="270" layoutY="100" text="The Greatest Tic Tac Toe Game Ever">
             <font>
@@ -20,7 +20,7 @@
                      <Font size="36.0" />
                  </font>
              </Label>
-            <Button fx:id="btnEasy" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" style="-fx-background-color: #87CEEB" text="Easy">
+            <Button fx:id="btnEasyMode" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" onAction="#handleBtnEasyMode" style="-fx-background-color: #87CEEB" text="Easy">
                 <font>
                     <Font size="36.0" />
                 </font>
@@ -28,7 +28,7 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnMedium" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" style="-fx-background-color: #87CEEB" text="Medium">
+            <Button fx:id="btnMediumMode" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" onAction="#handleBtnMediumMode" style="-fx-background-color: #87CEEB" text="Medium">
                 <font>
                     <Font size="36.0" />
                 </font>
@@ -36,7 +36,7 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnHard" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" style="-fx-background-color: #87CEEB" text="Hard">
+            <Button fx:id="btnHardMode" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" onAction="#handleBtnHardMode" style="-fx-background-color: #87CEEB" text="Hard">
                 <font>
                     <Font size="36.0" />
                 </font>
@@ -53,7 +53,7 @@
                      <Font size="36.0" />
                  </font>
              </Label>
-          <Button fx:id="btnMultiplayer" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" style="-fx-background-color: #87CEEB" text="Multiplayer">
+          <Button fx:id="btnMultiplayerMode" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" onAction="#handleBtnMultiplayerMode" style="-fx-background-color: #87CEEB" text="Multiplayer">
                 <font>
                     <Font size="36.0" />
                 </font>

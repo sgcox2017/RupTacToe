@@ -29,7 +29,8 @@ public class RupTacToe extends Application {
         
         primaryStage.setTitle("Tic Tac Toe");
         primaryStage.show();
-    }
+        
+    } 
 
     public static void main(String[] args) {
         launch(args);
