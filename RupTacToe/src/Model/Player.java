@@ -11,4 +11,31 @@ package Model;
  */
 public class Player {
     
+    String Marker;
+    Boolean Turn;
+    
+    public Player(int number){
+        if(number == 1){
+            Turn = true;
+            Marker = "X";
+        }
+        else{
+            Turn = false;
+            Marker = "O";
+        }
+    }
+    
+    public void startTurn(){
+        Turn = true;
+    }
+    public Boolean isTurn(){
+        return Turn;
+    }
+    public void endTurn(){
+        Turn = false;
+    }
+    
+    public String getMarker(){
+        return Marker;
+    }
 }

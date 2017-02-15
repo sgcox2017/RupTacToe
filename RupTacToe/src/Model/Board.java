@@ -23,7 +23,7 @@ public class Board {
     public void createBoard() {
         for(int r = 0; r < Board.getBoardSize(); ++r) {
             for(int c = 0; c < cSize; ++c) {
-                board[r][c] = 'O';
+                board[r][c] = ' ';
             }
         }
     }

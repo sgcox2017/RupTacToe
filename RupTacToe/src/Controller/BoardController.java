@@ -35,6 +35,7 @@ public class BoardController implements Initializable, Serializable {
     
     private Board        board;
     private static Player player;
+    private static Player player2;
     private Object[][]   boardGrid;
     private List<Node>   selected;
     private Object[][][] wordKey;
@@ -63,7 +64,7 @@ public class BoardController implements Initializable, Serializable {
         public void startEasyMode() {
         try {
             isSingleplayer = true;
-            player = new Player();
+            player = new Player(1);
             board = new Board(player);
             board.setup();
             setupGame();
@@ -80,7 +81,7 @@ public class BoardController implements Initializable, Serializable {
         public void startMediumMode() {
         try {
             isSingleplayer = true;
-            player = new Player();
+            player = new Player(1);
             board = new Board(player);
             board.setup();
             setupGame();
@@ -97,7 +98,7 @@ public class BoardController implements Initializable, Serializable {
         public void startHardMode() {
         try {
             isSingleplayer = true;
-            player = new Player();
+            player = new Player(1);
             board = new Board(player);
             board.setup();
             setupGame();
@@ -113,6 +114,11 @@ public class BoardController implements Initializable, Serializable {
      * @throws java.io.IOException
      */
     public void startMultiplayer() throws IOException {
+        isSingleplayer = false;
+        player = new Player(1);
+        player2 = new Player(2);
+        board = new Board(player);
+        board.setup();
         setupGame();
         generateBoard();
         startGame();
@@ -145,7 +151,7 @@ public class BoardController implements Initializable, Serializable {
                 temp.setAlignment(Pos.CENTER);
                 temp.setMinWidth(55);
                 temp.setBorder(new Border(new BorderStroke(Paint.valueOf("#87CEEB"), 
-            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
                 temp.setOnAction( this::handleSelected );
             }
         }      
@@ -165,29 +171,9 @@ public class BoardController implements Initializable, Serializable {
     @FXML
     private void handleSelected(ActionEvent event) {
         Button selectedButton = (Button)event.getSource();
-        int first = 1;
-        int pos = 0;
-        if( selected.isEmpty() ) {
-            if ( this.validateClick(selectedButton) == false ) {
-                resetSelection();
-            }
-            else {
-                System.out.println("Got the first letter!");
-            }
-            
-            // Always outline selected button.
-            selected.add(selectedButton);
-            selectedButton.setStyle("-fx-border-color: green;");
-        }
-        else if ( selectedButton != selected.get(pos)) {
-            if ( this.validateClick(selectedButton) == false ) {
-                resetSelection();
-            }
-            
-            if ( selected.size() > first ) {
-                System.out.println("Found word!");
-                selected.clear();
-            }
+        if( !selectedButton.isDisable()) {
+            mark(selectedButton);
+            selectedButton.setDisable(true);
         }
     }
     
@@ -261,7 +247,7 @@ public class BoardController implements Initializable, Serializable {
      */
     private void resetSelection() {
         for ( Node b : selected ) {
-            b.setStyle("");
+            b.setStyle("X");
         }
         selected.clear();
     }
@@ -271,8 +257,24 @@ public class BoardController implements Initializable, Serializable {
      */
     private void mark(Node b) {
         Button temp = (Button) b;
-        temp.setDisable(true);
-        temp.setStyle("-fx-background-color: green");
+        if(player.isTurn()){
+        temp.setText(player.getMarker());
+        player.endTurn();
+        player2.startTurn();
+        }
+        else{
+            temp.setText(player2.getMarker());
+            player2.endTurn();
+            player.startTurn();
+        }
+        System.out.println("Marked");
+        //temp.setDisable(true);
+        temp.setStyle("-fx-background-color: magenta");
+        CheckGameOver();
+    }
+    
+    private void CheckGameOver(){
+        
     }
     
     /**
