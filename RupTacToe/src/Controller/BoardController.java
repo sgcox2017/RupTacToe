@@ -24,6 +24,7 @@ import javafx.scene.text.Font;
 import Model.Board;
 import Model.Player;
 import java.awt.Color;
+import java.util.Arrays;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -45,6 +46,8 @@ public class BoardController implements Initializable, Serializable {
     private final int    spriteDuration = 9;
     private static BoardController bc;
     private boolean isSingleplayer;
+    
+    private final char[][] psudoboard = new char[3][3];
     
     @FXML
     private AnchorPane rootPane;
@@ -139,7 +142,7 @@ public class BoardController implements Initializable, Serializable {
         // Load a 2D array to the grid
         boardGrid = board.getBoard();
         selected = new ArrayList<>();
-        
+        int id = 0;
         // Load the board into the grid pane as buttons
         for ( int r = 0; r < 3; r++ ) {
             for ( int c = 0; c < 3; c++ ) {
@@ -152,7 +155,9 @@ public class BoardController implements Initializable, Serializable {
                 temp.setMinWidth(55);
                 temp.setBorder(new Border(new BorderStroke(Paint.valueOf("#87CEEB"), 
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-                temp.setOnAction( this::handleSelected );
+                temp.setOnAction( this::handleSelected);
+                temp.setId(Integer.toString(id));
+                id++;
             }
         }      
     }
@@ -173,63 +178,11 @@ public class BoardController implements Initializable, Serializable {
         Button selectedButton = (Button)event.getSource();
         if( !selectedButton.isDisable()) {
             mark(selectedButton);
+            CheckGameOver();
             selectedButton.setDisable(true);
         }
     }
-    
-    /**
-     * This method implements the logic for selecting a word from the board.
-     * @param button
-     * @return 
-     */
-    private boolean validateClick(Node b) {
-        return true;
-    }
-    
-    /**
-     * Gets the node located at the given coordinates.
-     * @param row
-     * @param col
-     * @return
-     * @throws IOException 
-     */
-    @FXML
-    private Node getGridNode(int row, int col) throws IOException {
-        Node returnNode = null;
-        ObservableList<Node> children = this.gpBoard.getChildren();
 
-        for ( Node node : children ) {
-            Integer r = GridPane.getRowIndex(node);
-            Integer c = GridPane.getColumnIndex(node);
-            if ( r != null && c != null ) {
-                if( r == row && c == col ) {
-                    returnNode = node;
-                    break;
-                }
-            }
-        }
-
-        return returnNode;
-    }
-    
-    /**
-     * Gets the row coordinate of the button.
-     * @param button
-     * @return 
-     */
-    private int getR(Node b) {
-        return GridPane.getRowIndex(b);
-    }
-    
-    /**
-     * Gets the column coordinate of the button.
-     * @param button
-     * @return 
-     */
-    private int getC(Node b) {
-        return GridPane.getColumnIndex(b);
-    }
-    
     /**
      * Logic executed when the game is over.
      */
@@ -243,38 +196,85 @@ public class BoardController implements Initializable, Serializable {
     }
     
     /**
-     * Resets the buttons and associated attributes after a selection.
-     */
-    private void resetSelection() {
-        for ( Node b : selected ) {
-            b.setStyle("X");
-        }
-        selected.clear();
-    }
-    
-    /**
      * Method for changing the look of a button.
      */
     private void mark(Node b) {
         Button temp = (Button) b;
         if(player.isTurn()){
-        temp.setText(player.getMarker());
-        player.endTurn();
-        player2.startTurn();
+            temp.setText(player.getMarker());
+            psudoboardmark(temp.getId(), player.getMarker());
+            player.endTurn();
+            player2.startTurn();
+            temp.setStyle("-fx-background-color: green");
         }
         else{
             temp.setText(player2.getMarker());
+            psudoboardmark(temp.getId(), player2.getMarker());
             player2.endTurn();
             player.startTurn();
+            temp.setStyle("-fx-background-color: magenta");
         }
         System.out.println("Marked");
-        //temp.setDisable(true);
-        temp.setStyle("-fx-background-color: magenta");
-        CheckGameOver();
+    }
+    
+    private void psudoboardmark(String id, String Smark){
+        int row = Integer.valueOf(id);
+        int col = row%3;
+        char mark = Smark.charAt(0);
+        if(row<3){
+            psudoboard[0][col] = mark;
+            //System.out.println(row +" "+ col +" "+ mark);
+        }
+        else if(row<6){
+            psudoboard[1][col] = mark;
+            //System.out.println(row +" "+ col +" "+ mark);
+        }
+        else{
+            psudoboard[2][col] = mark;
+            //System.out.println(row +" "+ col +" "+ mark);
+        }
     }
     
     private void CheckGameOver(){
-        
+        char a = psudoboard[0][0];
+        char b = psudoboard[0][1];
+        char c = psudoboard[0][2];
+        char d = psudoboard[1][0];
+        char e = psudoboard[1][1];
+        char f = psudoboard[1][2];
+        char g = psudoboard[2][0];
+        char h = psudoboard[2][1];
+        char i = psudoboard[2][2];
+        char marker = 'X';
+        int changes = 0;
+        while(changes < 2){
+            if(a == marker && b == marker && c == marker){
+            gameOver();
+            }
+            if(d == marker && e == marker && f == marker){
+            gameOver();
+            }
+            if(g == marker && h == marker && i == marker){
+            gameOver();
+            }
+            if(a == marker && d == marker && g == marker){
+            gameOver();
+            }
+            if(b == marker && e == marker && h == marker){
+            gameOver();
+            }
+            if(c == marker && f == marker && i == marker){
+            gameOver();
+            }
+            if(a == marker && e == marker && i == marker){
+            gameOver();
+            }
+            if(c == marker && e == marker && g == marker){
+            gameOver();
+            }
+            marker = 'O';
+            changes++;
+        }
     }
     
     /**
@@ -284,7 +284,7 @@ public class BoardController implements Initializable, Serializable {
      */
     @FXML
     private void showGameoverScene(ActionEvent event) throws IOException { 
-        Parent pane = FXMLLoader.load(getClass().getResource("/view/GameoverScene.fxml"));
+        Parent pane = FXMLLoader.load(getClass().getResource("/view/EndGameScene.fxml"));
         rootPane.getChildren().setAll(pane);
     }
 
