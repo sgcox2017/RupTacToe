@@ -25,6 +25,7 @@ import Model.Board;
 import Model.Player;
 import java.awt.Color;
 import java.util.Arrays;
+import javafx.scene.AccessibleAction;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -68,6 +69,8 @@ public class BoardController implements Initializable, Serializable {
         try {
             isSingleplayer = true;
             player = new Player(1);
+            player.isSingleplayer("Easy");
+            player2 = new Player(2);
             board = new Board(player);
             board.setup();
             setupGame();
@@ -84,7 +87,9 @@ public class BoardController implements Initializable, Serializable {
         public void startMediumMode() {
         try {
             isSingleplayer = true;
+            player.isSingleplayer("Medium");
             player = new Player(1);
+            player2 = new Player(2);
             board = new Board(player);
             board.setup();
             setupGame();
@@ -101,7 +106,9 @@ public class BoardController implements Initializable, Serializable {
         public void startHardMode() {
         try {
             isSingleplayer = true;
+            player.isSingleplayer("Hard");
             player = new Player(1);
+            player2 = new Player(2);
             board = new Board(player);
             board.setup();
             setupGame();
@@ -158,6 +165,7 @@ public class BoardController implements Initializable, Serializable {
                 temp.setOnAction( this::handleSelected);
                 temp.setId(Integer.toString(id));
                 id++;
+                selected.add(temp);
             }
         }      
     }
@@ -177,9 +185,9 @@ public class BoardController implements Initializable, Serializable {
     private void handleSelected(ActionEvent event) {
         Button selectedButton = (Button)event.getSource();
         if( !selectedButton.isDisable()) {
+            selectedButton.setDisable(true);
             mark(selectedButton);
             CheckGameOver();
-            selectedButton.setDisable(true);
         }
     }
 
@@ -206,6 +214,13 @@ public class BoardController implements Initializable, Serializable {
             player.endTurn();
             player2.startTurn();
             temp.setStyle("-fx-background-color: green");
+            System.out.println("Marked p1");
+            if(isSingleplayer){
+                System.out.println("Got here");
+                int place = player2.pickSpace(psudoboard);
+                System.out.println("Got here2");
+                Right here we need to find a way to get a button by the id (it has the property id and the id we need is place)
+            }
         }
         else{
             temp.setText(player2.getMarker());
@@ -213,8 +228,9 @@ public class BoardController implements Initializable, Serializable {
             player2.endTurn();
             player.startTurn();
             temp.setStyle("-fx-background-color: magenta");
+            System.out.println("Marked p2");
         }
-        System.out.println("Marked");
+        //System.out.println("Marked");
     }
     
     private void psudoboardmark(String id, String Smark){
