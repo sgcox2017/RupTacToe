@@ -16,6 +16,9 @@ import javafx.scene.layout.AnchorPane;
  */
 public class StartController implements Initializable {
     
+    //Holds the value of the difficulty of the CPU
+    private String difficulty;
+    
     @FXML
     private AnchorPane rootPane;
     
@@ -31,13 +34,13 @@ public class StartController implements Initializable {
      */
     @FXML
     private void handleBtnEasyMode(ActionEvent event) throws IOException {
-        System.out.println("Starting an Easy Mode Game!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/BoardScene.fxml"));
         Parent pane = (Parent)loader.load();
         rootPane.getChildren().setAll(pane);
 
         BoardController bc = loader.<BoardController>getController();
-        bc.startEasyMode();
+        difficulty = "Easy";
+        bc.startCPU(difficulty);
     }
     
     /**
@@ -47,13 +50,13 @@ public class StartController implements Initializable {
      */
     @FXML
     private void handleBtnMediumMode(ActionEvent event) throws IOException {
-        System.out.println("Starting a Medium Mode Game!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/BoardScene.fxml"));
         Parent pane = (Parent)loader.load();
         rootPane.getChildren().setAll(pane);
 
         BoardController bc = loader.<BoardController>getController();
-        bc.startMediumMode();
+        difficulty = "Medium";
+        bc.startCPU(difficulty);
     }
     
     /**
@@ -63,13 +66,13 @@ public class StartController implements Initializable {
      */
     @FXML
     private void handleBtnHardMode(ActionEvent event) throws IOException {
-        System.out.println("Starting a Hard Mode Game!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/BoardScene.fxml"));
         Parent pane = (Parent)loader.load();
         rootPane.getChildren().setAll(pane);
 
         BoardController bc = loader.<BoardController>getController();
-        bc.startHardMode();
+        difficulty = "Hard";
+        bc.startCPU(difficulty);
     }
     
     /**
@@ -79,11 +82,9 @@ public class StartController implements Initializable {
      */
     @FXML
     private void handleBtnMultiplayerMode(ActionEvent event) throws IOException {
-        System.out.println("Starting a Local Multiplayer Game!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/BoardScene.fxml"));
         Parent pane = (Parent)loader.load();
         rootPane.getChildren().setAll(pane);
-
         BoardController bc = loader.<BoardController>getController();
         bc.startMultiplayer();
     }
