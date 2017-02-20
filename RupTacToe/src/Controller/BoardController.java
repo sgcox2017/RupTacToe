@@ -69,8 +69,10 @@ public class BoardController implements Initializable, Serializable {
         try {
             isSingleplayer = true;
             player = new Player(1);
+            //System.out.println(player.getMarker());
             player.isSingleplayer("Easy");
             player2 = new Player(2);
+            //System.out.println(player.getMarker());
             board = new Board(player);
             board.setup();
             setupGame();
@@ -190,7 +192,7 @@ public class BoardController implements Initializable, Serializable {
             CheckGameOver();
         }
     }
-
+    
     /**
      * Logic executed when the game is over.
      */
@@ -208,18 +210,21 @@ public class BoardController implements Initializable, Serializable {
      */
     private void mark(Node b) {
         Button temp = (Button) b;
+        //System.out.println(player.getMarker());
         if(player.isTurn()){
             temp.setText(player.getMarker());
             psudoboardmark(temp.getId(), player.getMarker());
             player.endTurn();
             player2.startTurn();
             temp.setStyle("-fx-background-color: green");
-            System.out.println("Marked p1");
+            System.out.println("Marked p1 at " + temp.getId());
             if(isSingleplayer){
-                System.out.println("Got here");
-                int place = player2.pickSpace(psudoboard);
-                System.out.println("Got here2");
-                Right here we need to find a way to get a button by the id (it has the property id and the id we need is place)
+                //System.out.println("Got here");
+                int place = player2.pickSpace(this.psudoboard);
+                //System.out.println("Got here2");
+                //System.out.println(this.gpBoard.getChildren().get(place).getId());
+                Button here = (Button) this.gpBoard.getChildren().get(place);
+                here.fire();
             }
         }
         else{
@@ -228,7 +233,7 @@ public class BoardController implements Initializable, Serializable {
             player2.endTurn();
             player.startTurn();
             temp.setStyle("-fx-background-color: magenta");
-            System.out.println("Marked p2");
+            System.out.println("Marked p2 at " + temp.getId());
         }
         //System.out.println("Marked");
     }

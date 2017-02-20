@@ -13,7 +13,7 @@ import java.lang.reflect.Array;
  */
 public class Player {
     
-    private static String Marker;
+    private String Marker;
     private Boolean Turn;
     private static String Dificulty;
     private Boolean SinglePlayer;
@@ -49,23 +49,25 @@ public class Player {
     }
     
     public int pickSpace(char[][] board){
-        int markhere;
         int index = 0;
         int row = 0;
         int col = 0;
-        if(Dificulty.equalsIgnoreCase("Easy")){
-            while(board[row][col] == 0){
-                for(int r = 3 ; row<r ; row++){
-                    for(int c = 3 ; col<c ; col++){
-                        index++;
-                    }
+        //System.out.println(Dificulty);
+        if(Dificulty == "Easy"){
+            //System.out.println("check");
+            //System.out.println(board[row][col]);
+            while(board[row][col] == 'X' || board[row][col] == 'O'){
+                System.out.println(board[row][col]);
+                if(col!=2){
+                    col++;
                 }
+                else{
+                    row++;
+                }
+                index++;
             }
-            markhere = index;
         }
-        else{
-            markhere = 8;
-        }
-        return markhere;
+        //System.out.println(index);
+        return index;
     }
 }
