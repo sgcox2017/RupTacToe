@@ -5,18 +5,15 @@
  */
 package Model;
 
-import java.lang.reflect.Array;
-
 /**
  *
  * @author Samuel
  */
 public class Player {
     
-    private String Marker;
+    private final String Marker;
     private Boolean Turn;
     private static String Dificulty;
-    private Boolean SinglePlayer;
     
     public Player(int number){
         if(number == 1){
@@ -31,7 +28,6 @@ public class Player {
     
     public void isSingleplayer(String dif){
         Dificulty = dif;
-        SinglePlayer = true;
     }
     
     public void startTurn(){
@@ -48,26 +44,39 @@ public class Player {
         return Marker;
     }
     
-    public int pickSpace(char[][] board){
+    public int pickSpace(char[][] board){ 
+        
         int index = 0;
-        int row = 0;
-        int col = 0;
-        //System.out.println(Dificulty);
-        if(Dificulty == "Easy"){
-            //System.out.println("check");
-            //System.out.println(board[row][col]);
+        
+        char tl = board[0][0];
+        char tc = board[0][1];
+        char tr = board[0][2];
+        char cl = board[1][0];
+        char cc = board[1][1];
+        char cr = board[1][2];
+        char bl = board[2][0];
+        char bc = board[2][1];
+        char br = board[2][2];
+        
+        if("Easy".equals(Dificulty)){
+            int row = 0;
+            int col = 0;
             while(board[row][col] == 'X' || board[row][col] == 'O'){
-                System.out.println(board[row][col]);
+                index++;
                 if(col!=2){
                     col++;
                 }
-                else{
+                else if(row!=2){
                     row++;
+                    col=0;
                 }
-                index++;
             }
         }
-        //System.out.println(index);
+        
+        if("Medium".equals(Dificulty)){
+            System.out.println();
+        }
+        
         return index;
     }
 }
