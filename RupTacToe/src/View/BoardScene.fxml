@@ -8,39 +8,46 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" fx:id="rootPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BoardController">
-   <children>
-      <VBox fx:id="vbContent" alignment="CENTER" layoutX="333.0">
-         <children>
-            <HBox alignment="TOP_CENTER" style="-fx-border-color: black; -fx-background-color: #87CEEB;">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="The Greatest Tic Tac Toe Game Ever" HBox.hgrow="NEVER">
-                     <font>
-                        <Font name="System Bold" size="40.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="685.0" prefWidth="970.0">
-               <children>
-                  <GridPane fx:id="gpBoard" prefHeight="685.0" prefWidth="800.0">
+    <children>
+        <VBox fx:id="vbContent" alignment="CENTER" layoutX="0" layoutY="0" minWidth="1000" maxWidth="1000" >
+            <children>
+                <HBox alignment="TOP_CENTER" style="-fx-border-color: black; -fx-background-color: #87CEEB;">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="The Greatest Tic Tac Toe Game Ever" HBox.hgrow="NEVER">
+                            <font>
+                                <Font name="System Bold" size="40.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <GridPane fx:id="gpBoard" HBox.hgrow="NEVER" alignment="CENTER" >
+                    <VBox.margin>
+                        <Insets top="40" />
+                    </VBox.margin>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" percentHeight="0.0" vgrow="NEVER" />
-                        <RowConstraints minHeight="10.0" percentHeight="0.0" vgrow="NEVER" />
-                        <RowConstraints minHeight="10.0" percentHeight="0.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="175" maxHeight="175" vgrow="NEVER" />
+                        <RowConstraints minHeight="175" maxHeight="175" vgrow="NEVER" />
+                        <RowConstraints minHeight="175" maxHeight="175" vgrow="NEVER" />
                     </rowConstraints>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" percentWidth="0.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" percentWidth="0.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" percentWidth="0.0" />
-                     </columnConstraints>
-                  </GridPane>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="175" maxWidth="175" hgrow="NEVER" />
+                        <ColumnConstraints minWidth="175" maxWidth="175" hgrow="NEVER" />
+                        <ColumnConstraints minWidth="175" maxWidth="175" hgrow="NEVER" />
+                    </columnConstraints>
+                </GridPane>
+                <Label fx:id="playersTurn" alignment="CENTER" text="Player 1's Turn" visible="false"> 
+                    <VBox.margin>
+                        <Insets top="15" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="Arial Black" size="15"/>
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
 
