@@ -69,10 +69,8 @@ public class BoardController implements Initializable, Serializable {
         try {
             isSingleplayer = true;
             player = new Player(1);
-            //System.out.println(player.getMarker());
             player.isSingleplayer("Easy");
             player2 = new Player(2);
-            //System.out.println(player.getMarker());
             board = new Board(player);
             board.setup();
             setupGame();
@@ -89,8 +87,8 @@ public class BoardController implements Initializable, Serializable {
         public void startMediumMode() {
         try {
             isSingleplayer = true;
-            player.isSingleplayer("Medium");
             player = new Player(1);
+            player.isSingleplayer("Medium");
             player2 = new Player(2);
             board = new Board(player);
             board.setup();
@@ -108,8 +106,8 @@ public class BoardController implements Initializable, Serializable {
         public void startHardMode() {
         try {
             isSingleplayer = true;
-            player.isSingleplayer("Hard");
             player = new Player(1);
+            player.isSingleplayer("Hard");
             player2 = new Player(2);
             board = new Board(player);
             board.setup();
