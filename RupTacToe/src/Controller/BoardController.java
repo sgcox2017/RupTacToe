@@ -51,7 +51,7 @@ public class BoardController implements Initializable {
      * isSinglePlayer holds the value of whether or not player 1 is playing against the AI
      * cpuName and cpuNum hold the name and marker (O) for the CPU
      */
-    private boolean         isSingleplayer;
+    private boolean         isSinglePlayer;
     private final String    cpuName = "The CPU";
     private final int       cpuNum = 2;
     
@@ -72,10 +72,12 @@ public class BoardController implements Initializable {
     private int             moves;
     
     /**
+     * isWon holds the value of whether or not a win has occurred
      * winner holds the name of the winner if one wins
      * isDraw holds the value of whether or not a draw has occurred
      * fullBoard holds the value of how many total moves there are before a full board
      */
+    private static boolean  isWon;
     private static String   winner;
     private static boolean  isDraw;
     private final int       fullBoard = 9;
@@ -100,13 +102,14 @@ public class BoardController implements Initializable {
             player = setupPlayer(p1);
             player2 = setupCPU();
             
-            isSingleplayer = true;
-            player.setDifficulty(difficulty);
+            isSinglePlayer = true;
+            player2.setDifficulty(difficulty);
             
             board = new Board();
             board.createBoard();
             gameBoard = board.getBoard();
             
+            isWon = false;
             isDraw = false;
             moves = 0;
             turnName();
@@ -121,7 +124,7 @@ public class BoardController implements Initializable {
      * @throws java.io.IOException
      */
     public void startMultiplayer() throws IOException {
-        isSingleplayer = false;
+        isSinglePlayer = false;
         
         player = setupPlayer(p1);
         player2 = setupPlayer(p2);
@@ -131,6 +134,7 @@ public class BoardController implements Initializable {
         board.createBoard();
         gameBoard = board.getBoard();
         
+        isWon = false;
         isDraw = false;
         moves = 0;
         turnName();
@@ -246,10 +250,10 @@ public class BoardController implements Initializable {
     private void handleSelected(ActionEvent event) {
         Button selectedButton = (Button)event.getSource();
         if( !selectedButton.isDisable()) {
-            selectedButton.setDisable(true);
-            markViewBoard(selectedButton);
-            checkWin();
-            checkDraw();
+            if(isWon == false && isDraw == false) {
+                selectedButton.setDisable(true);
+                markViewBoard(selectedButton);
+            }
         }
     }
 
@@ -261,25 +265,35 @@ public class BoardController implements Initializable {
         Button selected = (Button) b;
         if(player.isTurn()){
             selected.setText(String.valueOf(player.getMarker()));
+            selected.setStyle("-fx-background-color: #87CEEB");
             markGameBoard(selected.getId(), player.getMarker());
+            ++moves;
             player.switchTurn();
             player2.switchTurn();
-            selected.setStyle("-fx-background-color: #87CEEB");
-//            if(isSingleplayer){
-//                int place = player2.pickSpace(gameBoard);
-//                Button here = (Button) this.gpBoard.getChildren().get(place);
-//                here.fire();
-//            }
+            turnName();
+            
+            if(isSinglePlayer == true) {
+                if(checkDraw() == true || checkWin() == true) {
+                    
+                } else {
+                    int place = player2.pickSpace(gameBoard);
+                    Button here = (Button) this.gpBoard.getChildren().get(place);
+                    here.fire();
+                }
+            }
         }
         else{
             selected.setText(String.valueOf(player2.getMarker()));
+            selected.setStyle("-fx-background-color: pink"); 
             markGameBoard(selected.getId(), player2.getMarker());
+            ++moves;
             player2.switchTurn();
             player.switchTurn();
-            selected.setStyle("-fx-background-color: pink");
+            turnName();
         }
-        ++moves;
-        turnName();
+       if(checkDraw() == true || checkWin() == true) {
+            gameOver();
+        }
     }
     
     /**
@@ -315,18 +329,20 @@ public class BoardController implements Initializable {
     @FXML
     private void turnName() {
         turn = (Label) RupTacToe.getScene().lookup("#playersTurn");
-        turn.setVisible(true);
-        if(player.isTurn().equals(true)) {
-            turn.setText(player.getPlayerName() + "'s Turn");
-        } else {
-            turn.setText(player2.getPlayerName() + "'s Turn");
+        if(isSinglePlayer == false) {
+            turn.setVisible(true);
+            if(player.isTurn().equals(true)) {
+                turn.setText(player.getPlayerName() + "'s Turn");
+            } else {
+                turn.setText(player2.getPlayerName() + "'s Turn");
+            }
         }
     }
     
     /**
      * Checks for a three in a row and ends the game if one is found
      */
-    private void checkWin(){
+    private boolean checkWin(){
         char tl = gameBoard[0][0];
         char tc = gameBoard[0][1];
         char tr = gameBoard[0][2];
@@ -337,48 +353,55 @@ public class BoardController implements Initializable {
         char bc = gameBoard[2][1];
         char br = gameBoard[2][2];
         
+        isWon = false;
+        
         if (tl == tc && tc == tr && tl == tr && tl != ' ') {
-            checkWinner();
-            gameOver();
+            isWon = true;
+            determineWinner();
         }
         else if (ml == mc && mc == mr && ml == mr && ml != ' ') {
-            checkWinner();
-            gameOver();
+            isWon = true;
+            determineWinner();
         }
         else if (bl == bc && bc == br && bl == br && bl != ' ') {
-            checkWinner();
-            gameOver();
+            isWon = true;
+            determineWinner();
         }
         else if (tl == ml && ml == bl && tl == bl && tl != ' ') {
-            checkWinner();
-            gameOver();
+            isWon = true;
+            determineWinner();
         }
         else if (tc == mc && mc == bc && tc == bc && tc != ' ') {
-            checkWinner();
-            gameOver();
+            isWon = true;
+            determineWinner();
         }
         else if (tr == mr && mr == br && tr == br && tr != ' ') {
-            checkWinner();
-            gameOver();
+            isWon = true;
+            determineWinner();
         }
         else if (tl == mc && mc == br && tl == br && tl != ' ') {
-            checkWinner();
-            gameOver();
+            isWon = true;
+            determineWinner();
         }
         else if (tr == mc && mc == bl && tr == bl && tr != ' ') {
-            checkWinner();
-            gameOver();
+            isWon = true;
+            determineWinner();
         }
+        
+        return isWon;
     }
     
     /**
      * Checks to see if a draw has occurred and if so ends the game
      */
-    private void checkDraw() {
+    private boolean checkDraw() {
         if(moves == fullBoard) {
-            isDraw = true;
-            gameOver();
+            if(checkWin() == false) {
+                isDraw = true;
+            }
         }
+        
+        return isDraw;
     }
     
     /**
@@ -403,7 +426,7 @@ public class BoardController implements Initializable {
     /**
      * In the event of a win, checks to see who the winner was and assigns it to the winner variable
      */
-    private void checkWinner() {
+    private void determineWinner() {
         if(!player.isTurn()) {
             setWinner(player.getPlayerName());
         } else {
