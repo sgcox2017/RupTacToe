@@ -255,6 +255,7 @@ public class BoardController implements Initializable {
                 selectedButton.setDisable(true);
                 markViewBoard(selectedButton);
             }
+            
         }
     }
 
@@ -281,6 +282,9 @@ public class BoardController implements Initializable {
                     Button here = (Button) this.gpBoard.getChildren().get(place);
                     here.fire();
                 }
+                if(checkDraw() == true || checkWin() == true) {
+                    gameOver();
+                }
             }
         }
         else{
@@ -292,8 +296,10 @@ public class BoardController implements Initializable {
             player.switchTurn();
             turnName();
         }
-       if(checkDraw() == true || checkWin() == true) {
-            gameOver();
+        if(isSinglePlayer == false) {
+            if(checkDraw() == true || checkWin() == true) {
+                gameOver();
+            }
         }
     }
     
