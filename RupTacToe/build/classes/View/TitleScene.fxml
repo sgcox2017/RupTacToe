@@ -6,62 +6,80 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StartController">
+<AnchorPane  xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" fx:id="rootPane" xmlns="http://javafx.com/javafx/8" fx:controller="Controller.StartController">
     <children>
-        <Label layoutX="270" layoutY="100" text="The Greatest Tic Tac Toe Game Ever">
+        <Label layoutX="100" layoutY="50" text="The Greatest Tic-Tac-Toe Game Ever">
             <font>
-                <Font size="69.0" />
+                <Font name="Arial Black" size="40.0" />
             </font>
         </Label>
-        <VBox alignment="CENTER" layoutX="360.0" layoutY="240.0">
-         <children>
-             <Label layoutX="80" layoutY="300" text="CPU Opponent" > 
-                 <font>
-                     <Font size="36.0" />
-                 </font>
-             </Label>
-            <Button fx:id="btnEasyMode" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" onAction="#handleBtnEasyMode" style="-fx-background-color: #87CEEB" text="Easy">
-                <font>
-                    <Font size="36.0" />
-                </font>
-                <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="btnMediumMode" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" onAction="#handleBtnMediumMode" style="-fx-background-color: #87CEEB" text="Medium">
-                <font>
-                    <Font size="36.0" />
-                </font>
-                <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="btnHardMode" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" onAction="#handleBtnHardMode" style="-fx-background-color: #87CEEB" text="Hard">
-                <font>
-                    <Font size="36.0" />
-                </font>
-                <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" layoutX="920.0" layoutY="240.0">
-          <children>
-              <Label layoutX="80" layoutY="300" text="Local Multiplayer" > 
-                 <font>
-                     <Font size="36.0" />
-                 </font>
-             </Label>
-          <Button fx:id="btnMultiplayerMode" layoutX="126" layoutY="90" prefHeight="97.0" prefWidth="302.0" onAction="#handleBtnMultiplayerMode" style="-fx-background-color: #87CEEB" text="Multiplayer">
-                <font>
-                    <Font size="36.0" />
-                </font>
-                <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-            </Button>
-          </children>
-      </VBox> 
+        <VBox alignment="CENTER" layoutX="150.0" layoutY="150.0">
+            <children>
+                <Label text="CPU Opponent" > 
+                    <font>
+                        <Font name="Arial Black" size="36.0"/>
+                    </font>
+                    <textFill>
+                        <javafx.scene.paint.Color  fx:value="#87CEEB"/>
+                    </textFill>
+                </Label>
+                <Button fx:id="btnEasyMode" prefHeight="100.0" prefWidth="300.0" onAction="#handleBtnEasyMode" style="-fx-background-color: #87CEEB" text="Easy">
+                    <font>
+                        <Font size="36.0"/>
+                    </font>
+                    <textFill>
+                        <javafx.scene.paint.Color  fx:value="#FFF"/>
+                    </textFill>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="btnMediumMode" prefHeight="100.0" prefWidth="300.0" onAction="#handleBtnMediumMode" style="-fx-background-color: #87CEEB" text="Medium">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                    <textFill>
+                        <javafx.scene.paint.Color  fx:value="#FFF"/>
+                    </textFill>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="btnHardMode" prefHeight="100.0" prefWidth="300.0" onAction="#handleBtnHardMode" style="-fx-background-color: #87CEEB" text="Hard">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                    <textFill>
+                        <javafx.scene.paint.Color  fx:value="#FFF"/>
+                    </textFill>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+        <VBox alignment="CENTER" layoutX="550" layoutY="150">
+            <children>
+                <Label layoutX="80" layoutY="300" text="Local Multiplayer" > 
+                    <font>
+                        <Font name="Arial Black" size="36.0"/>
+                    </font>
+                    <textFill>
+                        <javafx.scene.paint.Color  fx:value="#87CEEB"/>
+                    </textFill>
+                </Label>
+                <Button fx:id="btnMultiplayerMode" prefHeight="100" prefWidth="300" onAction="#handleBtnMultiplayerMode" style="-fx-background-color: #87CEEB" text="Multiplayer">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                    <textFill>
+                        <javafx.scene.paint.Color  fx:value="#FFF"/>
+                    </textFill>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox> 
     </children>
 </AnchorPane>

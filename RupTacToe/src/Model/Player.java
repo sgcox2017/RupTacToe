@@ -300,11 +300,104 @@ public class Player {
                 }
             }            
             else {                        
-                if(tl == empty || tl == 'O'){                                       //First Move    0
+                if(tl == empty){                                                    //First Move    0
                     index=0;
                 }
                 else{
-                    
+                    if(br == empty || br == 'O'){                                   //Second Move   8  
+                        if(br == empty){
+                            index=8;
+                        }
+                        else if(tr == empty || tr == 'O'){                          //Third Move    2
+                            if(tr == empty){
+                                index=2;
+                            }
+                            else if(tc == empty){                                   //Fourth Move   1 & 5
+                                index=1;
+                            }
+                            else if(mr == empty){
+                                index=5;
+                            }
+                            else{
+                                if(ml == empty || ml == 'O'){                       //Fourth Move   3
+                                    if(ml == empty){
+                                        index=3;
+                                    }
+                                    else if(bc == empty){                           //Fourth Move   7
+                                        index=7;
+                                    }
+                                    else{
+                                        index=6;                                    //Fourth Move   6
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            if(ml == empty || ml == 'O'){                           //Third Move   3
+                                    if(ml == empty){
+                                        index=3;
+                                    }
+                                    else if(bc == empty){                           //Fourth Move   7
+                                        index=7;
+                                    }
+                                    else{
+                                        index=6;                                    //Fourth Move   6
+                                    }
+                            }
+                        }
+                    }
+                    else{
+                        if(tr == empty || tr == 'O'){                               //Second Move   2
+                            if(tr == empty){
+                                index=2;
+                            }
+                            else{
+                                if(tc == empty){                                    //Third Move    1
+                                    index=1;
+                                }
+                                else if(bc == empty || bc == 'O'){                  //Third Move    7
+                                    if(bc == empty){
+                                        index=7;
+                                    }
+                                    else{
+                                        if(bl == empty || br == empty){             //Fourth Move   6 & 8
+                                            if(bl == empty){
+                                                index=6;
+                                            }
+                                            else{                                   
+                                                index=8;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if(tl == empty || tl == 'O'){                          //Second Move   2
+                            if(tl == empty){
+                                index=0;
+                            }
+                            else{
+                                if(tc == empty){                                    //Third Move    1
+                                    index=1;
+                                }
+                                else if(bc == empty || bc == 'O'){                  //Third Move    7
+                                    if(bc == empty){
+                                        index=7;
+                                    }
+                                    else{
+                                        if(br == empty || tr == empty){              //Fourth Move   6 & 8
+                                            if(bl == empty){
+                                                index=6;
+                                            }
+                                            else{                                   
+                                                index=8;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }    
+                    }
                 }
             }
         }
