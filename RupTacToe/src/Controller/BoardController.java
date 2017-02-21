@@ -70,6 +70,7 @@ public class BoardController implements Initializable {
      */
     private Label           turn;
     private int             moves;
+    private final char      empty = ' ';
     
     /**
      * isWon holds the value of whether or not a win has occurred
@@ -355,35 +356,35 @@ public class BoardController implements Initializable {
         
         isWon = false;
         
-        if (tl == tc && tc == tr && tl == tr && tl != ' ') {
+        if (tl == tc && tc == tr && tl == tr && tl != empty) {
             isWon = true;
             determineWinner();
         }
-        else if (ml == mc && mc == mr && ml == mr && ml != ' ') {
+        else if (ml == mc && mc == mr && ml == mr && ml != empty) {
             isWon = true;
             determineWinner();
         }
-        else if (bl == bc && bc == br && bl == br && bl != ' ') {
+        else if (bl == bc && bc == br && bl == br && bl != empty) {
             isWon = true;
             determineWinner();
         }
-        else if (tl == ml && ml == bl && tl == bl && tl != ' ') {
+        else if (tl == ml && ml == bl && tl == bl && tl != empty) {
             isWon = true;
             determineWinner();
         }
-        else if (tc == mc && mc == bc && tc == bc && tc != ' ') {
+        else if (tc == mc && mc == bc && tc == bc && tc != empty) {
             isWon = true;
             determineWinner();
         }
-        else if (tr == mr && mr == br && tr == br && tr != ' ') {
+        else if (tr == mr && mr == br && tr == br && tr != empty) {
             isWon = true;
             determineWinner();
         }
-        else if (tl == mc && mc == br && tl == br && tl != ' ') {
+        else if (tl == mc && mc == br && tl == br && tl != empty) {
             isWon = true;
             determineWinner();
         }
-        else if (tr == mc && mc == bl && tr == bl && tr != ' ') {
+        else if (tr == mc && mc == bl && tr == bl && tr != empty) {
             isWon = true;
             determineWinner();
         }
